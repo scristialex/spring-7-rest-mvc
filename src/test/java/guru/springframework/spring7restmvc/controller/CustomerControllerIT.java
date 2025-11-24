@@ -3,7 +3,7 @@ package guru.springframework.spring7restmvc.controller;
 import guru.springframework.spring7restmvc.entities.Customer;
 import guru.springframework.spring7restmvc.model.CustomerDTO;
 import guru.springframework.spring7restmvc.repositories.CustomerRepository;
-import guru.springframework.spring6restmvc.mappers.CustomerMapper;
+import guru.springframework.spring7restmvc.mappers.CustomerMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
