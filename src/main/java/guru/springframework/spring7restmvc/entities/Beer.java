@@ -1,6 +1,6 @@
 package guru.springframework.spring7restmvc.entities;
 
-import guru.springframework.spring6restmvc.model.BeerStyle;
+import guru.springframework.spring7restmvc.model.BeerStyle;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
