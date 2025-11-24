@@ -1,10 +1,10 @@
-package guru.springframework.spring6restmvc.bootstrap;
+package guru.springframework.spring7restmvc.bootstrap;
 
-import guru.springframework.spring6restmvc.entities.Beer;
-import guru.springframework.spring6restmvc.entities.Customer;
-import guru.springframework.spring6restmvc.model.BeerStyle;
-import guru.springframework.spring6restmvc.repositories.BeerRepository;
-import guru.springframework.spring6restmvc.repositories.CustomerRepository;
+import guru.springframework.spring7restmvc.entities.Beer;
+import guru.springframework.spring7restmvc.entities.Customer;
+import guru.springframework.spring7restmvc.model.BeerStyle;
+import guru.springframework.spring7restmvc.repositories.BeerRepository;
+import guru.springframework.spring7restmvc.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
