@@ -1,8 +1,8 @@
 package guru.springframework.spring7restmvc.services;
 
-import lombok.extern.slf4j.Slf4j;
 import guru.springframework.spring7restmvc.model.Beer;
 import guru.springframework.spring7restmvc.model.BeerStyle;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 @Slf4j
 @Service
 public class BeerServiceImpl implements BeerService {
@@ -61,22 +64,6 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public void updateBeerById(UUID beerId, Beer beer) {
-        Beer existing = beerMap.get(beerId);
-        existing.setBeerName(beer.getBeerName());
-        existing.setPrice(beer.getPrice());
-        existing.setUpc(beer.getUpc());
-        existing.setQuantityOnHand(beer.getQuantityOnHand());
-
-        beerMap.put(existing.getId(), existing);
-    }
-
-    @Override
-    public void deleteById(UUID beerId) {
-        beerMap.remove(beerId);
-    }
-
-    @Override
     public void patchBeerById(UUID beerId, Beer beer) {
         Beer existing = beerMap.get(beerId);
 
@@ -101,6 +88,19 @@ public class BeerServiceImpl implements BeerService {
         }
     }
 
+    @Override
+    public void deleteById(UUID beerId) {
+        beerMap.remove(beerId);
+    }
+
+    @Override
+    public void updateBeerById(UUID beerId, Beer beer) {
+        Beer existing = beerMap.get(beerId);
+        existing.setBeerName(beer.getBeerName());
+        existing.setPrice(beer.getPrice());
+        existing.setUpc(beer.getUpc());
+        existing.setQuantityOnHand(beer.getQuantityOnHand());
+    }
 
     @Override
     public List<Beer> listBeers(){
@@ -109,7 +109,9 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public Beer getBeerById(UUID id) {
+
         log.debug("Get Beer by Id - in service. Id: " + id.toString());
+
         return beerMap.get(id);
     }
 
@@ -132,8 +134,21 @@ public class BeerServiceImpl implements BeerService {
 
         return savedBeer;
     }
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

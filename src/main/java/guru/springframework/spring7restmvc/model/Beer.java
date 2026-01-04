@@ -7,10 +7,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 @Builder
 @Data
 public class Beer {
-
     private UUID id;
     private Integer version;
     private String beerName;
@@ -20,7 +22,4 @@ public class Beer {
     private BigDecimal price;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
-
-
-
 }

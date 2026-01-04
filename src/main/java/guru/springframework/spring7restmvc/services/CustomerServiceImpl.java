@@ -1,13 +1,15 @@
 package guru.springframework.spring7restmvc.services;
 
 import guru.springframework.spring7restmvc.model.Customer;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -45,6 +47,26 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public void patchCustomerById(UUID customerId, Customer customer) {
+        Customer existing = customerMap.get(customerId);
+
+        if (StringUtils.hasText(customer.getName())) {
+            existing.setName(customer.getName());
+        }
+    }
+
+    @Override
+    public void deleteCustomerById(UUID customerId) {
+        customerMap.remove(customerId);
+    }
+
+    @Override
+    public void updateCustomerById(UUID customerId, Customer customer) {
+        Customer existing = customerMap.get(customerId);
+        existing.setName(customer.getName());
+    }
+
+    @Override
     public Customer saveNewCustomer(Customer customer) {
 
         Customer savedCustomer = Customer.builder()
@@ -61,26 +83,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomerById(UUID customerId, Customer customer) {
-        Customer existing = customerMap.get(customerId);
-        existing.setName(customer.getName());
-    }
-
-    @Override
-    public void deleteById(UUID customerId) {
-        customerMap.remove(customerId);
-    }
-
-    @Override
-    public void patchCustomerById(UUID customerId, Customer customer) {
-        Customer existing = customerMap.get(customerId);
-
-        if (StringUtils.hasText(customer.getName())) {
-            existing.setName(customer.getName());
-        }
-    }
-
-    @Override
     public Customer getCustomerById(UUID uuid) {
         return customerMap.get(uuid);
     }
@@ -90,3 +92,14 @@ public class CustomerServiceImpl implements CustomerService {
         return new ArrayList<>(customerMap.values());
     }
 }
+
+
+
+
+
+
+
+
+
+
+

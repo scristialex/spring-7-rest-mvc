@@ -5,8 +5,12 @@ import guru.springframework.spring7restmvc.model.Customer;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 public interface CustomerService {
-    Customer getCustomerById(UUID id);
+
+    Customer getCustomerById(UUID uuid);
 
     List<Customer> getAllCustomers();
 
@@ -14,7 +18,7 @@ public interface CustomerService {
 
     void updateCustomerById(UUID customerId, Customer customer);
 
-    void deleteById(UUID customerId);
+    void deleteCustomerById(UUID customerId);
 
     void patchCustomerById(UUID customerId, Customer customer);
 }
