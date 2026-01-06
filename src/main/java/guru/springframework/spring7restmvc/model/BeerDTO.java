@@ -12,10 +12,10 @@ import java.util.UUID;
 /**
  * Created by jt, Spring Framework Guru.
  */
-@JsonDeserialize(builder = Beer.BeerBuilder.class)
+@JsonDeserialize(builder = BeerDTO.BeerDTOBuilder.class)
 @Builder
 @Data
-public class Beer {
+public class BeerDTO {
     @JsonProperty("id")
     private UUID id;
 
