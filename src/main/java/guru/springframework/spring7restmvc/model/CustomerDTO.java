@@ -15,7 +15,6 @@ import java.util.UUID;
 @Data
 @Builder
 public class CustomerDTO {
-
     @JsonProperty("id")
     private UUID id;
 
@@ -24,6 +23,7 @@ public class CustomerDTO {
 
     @JsonProperty("version")
     private Integer version;
+
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
 }
