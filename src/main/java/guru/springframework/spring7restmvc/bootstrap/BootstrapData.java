@@ -14,15 +14,17 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 @Component
 @RequiredArgsConstructor
 public class BootstrapData implements CommandLineRunner {
-
     private final BeerRepository beerRepository;
     private final CustomerRepository customerRepository;
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws Exception {
         loadBeerData();
         loadCustomerData();
     }
@@ -63,6 +65,7 @@ public class BootstrapData implements CommandLineRunner {
             beerRepository.save(beer2);
             beerRepository.save(beer3);
         }
+
     }
 
     private void loadCustomerData() {
@@ -93,5 +96,6 @@ public class BootstrapData implements CommandLineRunner {
         }
 
     }
+
 
 }
