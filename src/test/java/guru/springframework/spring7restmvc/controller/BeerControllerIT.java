@@ -14,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -30,15 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import static org.hamcrest.core.Is.is;
-
-
 @SpringBootTest
 class BeerControllerIT {
-
     @Autowired
     BeerController beerController;
 
@@ -76,7 +68,6 @@ class BeerControllerIT {
 
     }
 
-
     @Test
     void testDeleteByIDNotFound() {
         assertThrows(NotFoundException.class, () -> {
@@ -94,6 +85,13 @@ class BeerControllerIT {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
 
         assertThat(beerRepository.findById(beer.getId()).isEmpty());
+    }
+
+    @Test
+    void testUpdateNotFound() {
+        assertThrows(NotFoundException.class, () -> {
+            beerController.updateById(UUID.randomUUID(), BeerDTO.builder().build());
+        });
     }
 
     @Rollback
@@ -114,11 +112,10 @@ class BeerControllerIT {
         assertThat(updatedBeer.getBeerName()).isEqualTo(beerName);
     }
 
-    @Test
     @Rollback
     @Transactional
+    @Test
     void saveNewBeerTest() {
-
         BeerDTO beerDTO = BeerDTO.builder()
                 .beerName("New Beer")
                 .build();
@@ -133,7 +130,6 @@ class BeerControllerIT {
 
         Beer beer = beerRepository.findById(savedUUID).get();
         assertThat(beer).isNotNull();
-
     }
 
     @Test
@@ -145,12 +141,11 @@ class BeerControllerIT {
 
     @Test
     void testGetById() {
-        Beer beer = beerRepository.findAll().getFirst();
+        Beer beer = beerRepository.findAll().get(0);
 
         BeerDTO dto = beerController.getBeerById(beer.getId());
 
         assertThat(dto).isNotNull();
-
     }
 
     @Test
@@ -165,17 +160,15 @@ class BeerControllerIT {
     @Test
     void testEmptyList() {
         beerRepository.deleteAll();
-
         List<BeerDTO> dtos = beerController.listBeers();
 
         assertThat(dtos.size()).isEqualTo(0);
     }
-
-    @Test
-    void testUpdateNotFound() {
-        assertThrows(NotFoundException.class, () -> {
-            beerController.updateById(UUID.randomUUID(), BeerDTO.builder().build());
-        });
-    }
-
 }
+
+
+
+
+
+
+

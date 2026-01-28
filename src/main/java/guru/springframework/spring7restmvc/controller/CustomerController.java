@@ -25,9 +25,9 @@ public class CustomerController {
 
     @PatchMapping(CUSTOMER_PATH_ID)
     public ResponseEntity patchCustomerById(@PathVariable("customerId") UUID customerId,
-                                                @RequestBody CustomerDTO customerDTO){
+                                                @RequestBody CustomerDTO customer){
 
-        customerService.patchCustomerById(customerId, customerDTO);
+        customerService.patchCustomerById(customerId, customer);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -35,7 +35,7 @@ public class CustomerController {
     @DeleteMapping(CUSTOMER_PATH_ID)
     public ResponseEntity deleteCustomerById(@PathVariable("customerId") UUID customerId){
 
-        if ( !customerService.deleteCustomerById(customerId) ) {
+        if (!customerService.deleteCustomerById(customerId)){
             throw new NotFoundException();
         }
 
@@ -44,9 +44,9 @@ public class CustomerController {
 
     @PutMapping(CUSTOMER_PATH_ID)
     public ResponseEntity updateCustomerByID(@PathVariable("customerId") UUID customerId,
-                                             @RequestBody CustomerDTO customerDTO){
+                                             @RequestBody CustomerDTO customer){
 
-        if (customerService.updateCustomerById(customerId, customerDTO).isEmpty()) {
+        if (customerService.updateCustomerById(customerId, customer).isEmpty()){
             throw new NotFoundException();
         }
 
@@ -54,16 +54,16 @@ public class CustomerController {
     }
 
     @PostMapping(CUSTOMER_PATH)
-    public ResponseEntity handlePost(@RequestBody CustomerDTO customerDTO){
-        CustomerDTO savedCustomerDTO = customerService.saveNewCustomer(customerDTO);
+    public ResponseEntity handlePost(@RequestBody CustomerDTO customer){
+        CustomerDTO savedCustomer = customerService.saveNewCustomer(customer);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", CUSTOMER_PATH + "/" + savedCustomerDTO.getId().toString());
+        headers.add("Location", CUSTOMER_PATH + "/" + savedCustomer.getId().toString());
 
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = CUSTOMER_PATH)
+    @GetMapping(CUSTOMER_PATH)
     public List<CustomerDTO> listAllCustomers(){
         return customerService.getAllCustomers();
     }
