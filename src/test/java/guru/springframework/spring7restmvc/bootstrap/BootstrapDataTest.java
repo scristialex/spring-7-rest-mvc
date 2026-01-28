@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class BootstrapDataTest {
@@ -27,12 +26,10 @@ class BootstrapDataTest {
     }
 
     @Test
-    void testRun() {
+    void Testrun() throws Exception {
         bootstrapData.run(null);
 
         assertThat(beerRepository.count()).isEqualTo(3);
         assertThat(customerRepository.count()).isEqualTo(3);
     }
-
-
 }
