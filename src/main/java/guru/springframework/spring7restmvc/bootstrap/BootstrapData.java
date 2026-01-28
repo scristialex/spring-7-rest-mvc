@@ -1,13 +1,11 @@
 package guru.springframework.spring7restmvc.bootstrap;
 
-
 import guru.springframework.spring7restmvc.entities.Beer;
 import guru.springframework.spring7restmvc.entities.Customer;
 import guru.springframework.spring7restmvc.model.BeerStyle;
 import guru.springframework.spring7restmvc.repositories.BeerRepository;
 import guru.springframework.spring7restmvc.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +19,6 @@ import java.util.Arrays;
 @Component
 @RequiredArgsConstructor
 public class BootstrapData implements CommandLineRunner {
-
     private final BeerRepository beerRepository;
     private final CustomerRepository customerRepository;
 
