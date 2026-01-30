@@ -20,9 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("localmysql")
 public class MySqlIT {
 
-    @Container
-    @ServiceConnection
-    static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:9.2");
+//    @Container
+//    @ServiceConnection
+//    static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:9.2");
 
 
 //    @DynamicPropertySource
