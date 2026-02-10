@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 /**
- * Created by jt.
+ * Created by jt, Spring Framework Guru.
  */
 @Getter
 @Setter
@@ -17,8 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Builder
-public class BeerOrderLine {
-
+public class BeerOrderShipment {
     @Id
     @GeneratedValue(generator = "UUID")
     @UuidGenerator
@@ -29,23 +28,20 @@ public class BeerOrderLine {
     @Version
     private Long version;
 
+    @OneToOne
+    private BeerOrder beerOrder;
+
+    private String trackingNumber;
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdDate;
 
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
-
-    public boolean isNew() {
-        return this.id == null;
-    }
-
-    private Integer orderQuantity = 0;
-    private Integer quantityAllocated = 0;
-
-    @ManyToOne
-    private BeerOrder beerOrder;
-
-    @ManyToOne
-    private Beer beer;
 }
