@@ -16,7 +16,7 @@ public class SpringSecConfig {
                 .csrf(httpSecurityCsrfConfigurer -> {
             httpSecurityCsrfConfigurer.ignoringRequestMatchers("/api/**");
         })
-//                .httpBasic(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults())
         ;
 
         return http.build();

@@ -55,6 +55,9 @@ class BeerControllerTest {
     @Captor
     ArgumentCaptor<BeerDTO> beerArgumentCaptor;
 
+    public static final String USERNAME = "user1";
+    public static final String PASSWORD = "password";
+
     @BeforeEach
     void setUp() {
         beerServiceImpl = new BeerServiceImpl();
