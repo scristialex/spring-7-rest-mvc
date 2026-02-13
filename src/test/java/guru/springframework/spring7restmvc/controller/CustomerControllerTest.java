@@ -1,5 +1,6 @@
 package guru.springframework.spring7restmvc.controller;
 
+import guru.springframework.spring7restmvc.config.SpringSecConfig;
 import guru.springframework.spring7restmvc.model.CustomerDTO;
 import guru.springframework.spring7restmvc.services.CustomerService;
 import guru.springframework.spring7restmvc.services.CustomerServiceImpl;
@@ -11,6 +12,7 @@ import org.mockito.Captor;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(CustomerController.class)
 @ExtendWith(MockitoExtension.class)
+@Import(SpringSecConfig.class)
 class CustomerControllerTest {
 
     @MockitoBean
@@ -63,6 +66,7 @@ class CustomerControllerTest {
         customerMap.put("name", "New Name");
 
         mockMvc.perform(patch( CustomerController.CUSTOMER_PATH_ID, customer.getId())
+                        .with(BeerControllerTest.jwtRequestPostProcessor)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(customerMap)))
                 .andExpect(status().isNoContent());
@@ -82,6 +86,7 @@ class CustomerControllerTest {
         given(customerService.deleteCustomerById(any())).willReturn(true);
 
         mockMvc.perform(delete(CustomerController.CUSTOMER_PATH_ID, customer.getId())
+                        .with(BeerControllerTest.jwtRequestPostProcessor)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
@@ -98,6 +103,7 @@ class CustomerControllerTest {
                 .build()));
 
         mockMvc.perform(put(CustomerController.CUSTOMER_PATH_ID, customer.getId())
+                        .with(BeerControllerTest.jwtRequestPostProcessor)
                 .content(objectMapper.writeValueAsString(customer))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -118,6 +124,7 @@ class CustomerControllerTest {
                 .willReturn(customerServiceImpl.getAllCustomers().get(1));
 
         mockMvc.perform(post(CustomerController.CUSTOMER_PATH).contentType(MediaType.APPLICATION_JSON)
+                        .with(BeerControllerTest.jwtRequestPostProcessor)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(customer)))
                 .andExpect(status().isCreated())
@@ -129,6 +136,7 @@ class CustomerControllerTest {
         given(customerService.getAllCustomers()).willReturn(customerServiceImpl.getAllCustomers());
 
         mockMvc.perform(get(CustomerController.CUSTOMER_PATH)
+                        .with(BeerControllerTest.jwtRequestPostProcessor)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -140,7 +148,8 @@ class CustomerControllerTest {
 
         given(customerService.getCustomerById(any(UUID.class))).willReturn(Optional.empty());
 
-        mockMvc.perform(get(CustomerController.CUSTOMER_PATH_ID, UUID.randomUUID()))
+        mockMvc.perform(get(CustomerController.CUSTOMER_PATH_ID, UUID.randomUUID())
+                        .with(BeerControllerTest.jwtRequestPostProcessor))
                 .andExpect(status().isNotFound());
     }
 
@@ -151,6 +160,7 @@ class CustomerControllerTest {
         given(customerService.getCustomerById(customer.getId())).willReturn(Optional.of(customer));
 
         mockMvc.perform(get(CustomerController.CUSTOMER_PATH_ID, customer.getId())
+                        .with(BeerControllerTest.jwtRequestPostProcessor)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
